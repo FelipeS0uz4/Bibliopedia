@@ -81,4 +81,4 @@ export async function InformacoesGerais(nome) {
 }
 
 //Exemplo de uso
-//PesquisarNomes('Harry Potter').then(nomes => console.log(nomes));
+

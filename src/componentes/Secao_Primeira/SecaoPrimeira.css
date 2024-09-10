@@ -11,6 +11,7 @@
     width: 50%; /* O container ocupa 50% da largura disponível */
     max-width: 28rem; /* Limite para o tamanho máximo do slider */
     margin: 0 auto; /* Centraliza horizontalmente */
+    bottom: 1rem;
 }
 
 /* Certifica-se de que o Swiper ocupe toda a largura do container */

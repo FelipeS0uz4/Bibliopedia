@@ -1,30 +1,38 @@
-/* eslint-disable import/first */
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import {register} from 'swiper/element/bundle'
+import LayoutAvaliacao from './routes/LayoutDeAvaliacao';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import Home from './routes/Home/Home';
 
-register();
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
+// Definindo as rotas da aplicação
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path:"home",
+        element:<Home />
+      },
+      {
+        path: "livro/:livroId",  // Caminho correto para a rota
+        element: <LayoutAvaliacao />,
+      },
+    ],
+  },
 
+]);
 
-
-
-
-
-
+// Renderiza o RouterProvider com as rotas configuradas
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-

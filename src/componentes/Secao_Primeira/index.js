@@ -27,7 +27,7 @@ const CriarDicionarioImagens = async () => {
 };
 
 
-const MeuComponente = () => {
+const SecaodeReel = () => {
     const [imagens, setImagens] = useState([]);
 
     useEffect(() => {
@@ -62,4 +62,4 @@ const MeuComponente = () => {
     );
 };
 
-export default MeuComponente;
+export default SecaodeReel;

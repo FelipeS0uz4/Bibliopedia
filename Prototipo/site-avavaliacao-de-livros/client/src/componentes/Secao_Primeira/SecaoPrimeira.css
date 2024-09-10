@@ -1,0 +1,62 @@
+/* Estilo para a seção de fundo */
+.BackGroundSection {
+    margin-top: 2rem;
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombras para dar profundidade */
+}
+
+/* Estilo para o container das imagens dos livros */
+.container-imagem-livros {
+    position: relative;
+    width: 50%; /* O container ocupa 50% da largura disponível */
+    max-width: 28rem; /* Limite para o tamanho máximo do slider */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    bottom: 1rem;
+}
+
+/* Certifica-se de que o Swiper ocupe toda a largura do container */
+.swiper-container {
+    width: 100%; /* O Swiper ocupa toda a largura do container */
+}
+
+/* Configuração dos slides do Swiper */
+.swiper-slide {
+    display: flex; /* Garante que o slide ocupe toda a área disponível */
+    justify-content: center; /* Centraliza o conteúdo dentro do slide */
+    align-items: center; /* Centraliza verticalmente o conteúdo */
+}
+
+/* Estilo da imagem dentro de cada slide */
+.slide-item {
+    width: 75%; /* A imagem ocupa 75% da largura do slide */
+    height: auto; /* Mantém a proporção da imagem */
+    object-fit: cover; /* Ajusta a imagem para cobrir o slide */
+}
+
+/* Estilo das setas de navegação */
+.swiper-button-next, 
+.swiper-button-prev {
+    position: fixed; /* Posiciona as setas em relação à janela do navegador */
+    top: 35%; /* Posiciona verticalmente no meio da tela */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo das setas para maior visibilidade */
+    color: #fff; /* Cor das setas */
+    width: 2.5rem; /* Largura das setas */
+    height: 2.5rem; /* Altura das setas */
+    display: flex; /* Para centralizar o ícone */
+    justify-content: center; /* Centraliza o ícone horizontalmente */
+    align-items: center; /* Centraliza o ícone verticalmente */
+    border-radius: 50%; /* Torna as setas circulares */
+    z-index: 10; /* Garante que as setas estejam acima de outros elementos */
+    cursor: pointer; /* Altera o cursor para indicar que as setas são clicáveis */
+}
+
+/* Posicionamento específico para a seta da direita */
+.swiper-button-next {
+    right: 0.625rem; /* Distância da borda direita */
+}
+
+/* Posicionamento específico para a seta da esquerda */
+.swiper-button-prev {
+    left: 0.625rem; /* Distância da borda esquerda */
+}

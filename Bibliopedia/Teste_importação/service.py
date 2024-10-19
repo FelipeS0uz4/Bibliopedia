@@ -37,3 +37,9 @@ def loginService(usuario):
 
 def SalvarComentario(comentario):    
     return SalvarComentarios(comentario)   
+
+def ServiceMediaNotas(idlivro):
+    return mediaNotas(idlivro)
+
+def Comentarios(idLivro):
+    return TodosComentarios(idLivro)

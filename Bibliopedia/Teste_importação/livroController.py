@@ -2,6 +2,7 @@ from flask import make_response, jsonify,request, redirect,session,url_for
 import requests
 from service import *
 
+
 ##Pesquisar dados API Google Books
 def PesquisarLivros(nome):
     procura = nome
@@ -41,34 +42,37 @@ def PesquisarGenero(nome):
     resultados = PesquisarLivros(nome)
     i = resultados[0]['selfLink']
     infomar = PesquisaProfunda(i)
-    seila = infomar['volumeInfo']['categories']
-    for e in seila:
-        if e.split('/') == 3:
-            a,b,c = e.split('/')
-            a = a.strip()
-            b = b.strip()
-            c = c.strip()
-            if (a in listaGeneros) == False:
-                listaGeneros.append(a)
-            if (b in listaGeneros) == False:
-                listaGeneros.append(b)
-            if (c in listaGeneros) == False:
-                listaGeneros.append(c)
-        elif e.split('/') == 3:
-            a,b = e.split('/')
-            a = a.strip()
-            b = b.strip()
-            if (a in listaGeneros) == False:
-                listaGeneros.append(a)
-            if (b in listaGeneros) == False:
-                listaGeneros.append(b)
-            if (c in listaGeneros) == False:
-                listaGeneros.append(c)
-        else:
-            c = e
-            if (c in listaGeneros) == False:
-                listaGeneros.append(c)
-
+    try:
+        seila = infomar['volumeInfo']['categories']
+        for e in seila:
+            if e.split('/') == 3:
+                a,b,c = e.split('/')
+                a = a.strip()
+                b = b.strip()
+                c = c.strip()
+                if (a in listaGeneros) == False:
+                    listaGeneros.append(a)
+                if (b in listaGeneros) == False:
+                    listaGeneros.append(b)
+                if (c in listaGeneros) == False:
+                    listaGeneros.append(c)
+            elif e.split('/') == 3:
+                a,b = e.split('/')
+                a = a.strip()
+                b = b.strip()
+                if (a in listaGeneros) == False:
+                    listaGeneros.append(a)
+                if (b in listaGeneros) == False:
+                    listaGeneros.append(b)
+                if (c in listaGeneros) == False:
+                    listaGeneros.append(c)
+            else:
+                c = e
+                if (c in listaGeneros) == False:
+                    listaGeneros.append(c)
+    except:
+        FileNotFoundError
+        
     return listaGeneros
     
 def PesquisarNome(nome):
@@ -138,10 +142,25 @@ def SalveLivro():
             Mensagem = "Livro salvo"
         )
     )
+    
+def ListadeLivros(pesquisa):
+    livros = PesquisarNomes(pesquisa)
+    resposta = {}
+    for i in livros:
+        resposta[i] = InformaçõesGerais(i)
+    return resposta
 
 
 ## Usuarios
 
+class Usuario:
+    def __init__(self, Nome,Email,Senha,Imagem='https://www.shutterstock.com/image-vector/default-avatar-profile-icon-vector-600nw-1745180411.jpg'):
+        self.nome = Nome
+        self.email = Email
+        self.senha = Senha
+        self.imagem = Imagem
+        
+        
 
 def listarTodosUsuario():    
     return make_response(
@@ -152,8 +171,9 @@ def listarTodosUsuario():
     ) 
 
 def salvarUsuario():    
-    usuario = request.json     
-    verificacao = salvarUserService(usuario)
+    usuario = request.json
+    DadosUsuario = Usuario(usuario.get('Nome'), usuario.get('Email'),usuario.get('Senha'))     
+    verificacao = salvarUserService(DadosUsuario)
     if verificacao == ('Email já existe'):
         return  make_response(
             jsonify(
@@ -173,26 +193,30 @@ def salvarUsuario():
             )
         )
 
-    
-def listarApenasUmUsuario(id):       
+def listarApenasUmUsuario(id):
+    usuario = listarApenasUmUsuarioService(id)
+    DadosUsuario={'idUsuario': usuario['idUsuario'], 
+                  'NomeUsuario': usuario['NomeUsuario'], 
+                  'EmailUsuario': usuario['EmailUsuario'], 
+                  'SenhaUsuario': usuario['SenhaUsuario'], 
+                  'ImagemUsuario': str(usuario['ImagemUsuario'])}       
     return make_response(
         jsonify(
             mensagem = "Listagem de user",
-            usuario = listarApenasUmUsuarioService(id)
+            usuario = DadosUsuario
         )
     ) 
 
 def atualizarUmUsuario(id): 
     usuario = request.json
-    
-    if not isinstance(usuario.get('senha'), str):
+    DadosUsuario = Usuario(usuario.get('Nome'), usuario.get('Email'),usuario.get('Senha'),usuario.get('Imagem'))  
+    if not isinstance(usuario.get('Senha'), str):
         return make_response(
             jsonify(
               mensagem = "Senha deve ser uma string"  
             )
         )
-    
-    atualizarUmUsuarioService(id, usuario)          
+    atualizarUmUsuarioService(id, DadosUsuario)          
     return make_response(
         jsonify(
             mensagem = "Usuário Atualizado com sucesso!!"
@@ -232,24 +256,15 @@ def login():
         )
 
 def logout():
-    if 'user_id' in session:
-        session.pop('user_id', None)
-        session.pop('user_name', None)
-        session.pop('user_email', None)
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    session.pop('user_email', None)
         
-        return make_response(
+    return make_response(
             jsonify(
                 mensagem="Logout realizado com sucesso",
                 status=200
             ), 200
-        )
-    else:
-
-        return make_response(
-            jsonify(
-                mensagem="Nenhum usuário está logado",
-                status=400
-            ), 400
         )
     
 ##Comentario
@@ -268,7 +283,7 @@ def salvarComentario():
     )
     
 def Vercomentarios(idLivro):
-    Comentarios(idLivro)
+    return Comentarios(idLivro)
     
 ##Rating
 def notaLivro(idLivro):
@@ -279,3 +294,4 @@ def notaLivro(idLivro):
             nota = notaMedia
         )
     )
+    

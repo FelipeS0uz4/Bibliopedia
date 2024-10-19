@@ -38,7 +38,7 @@ def Livrosdb():
     with conexao() as conectar:
         cursor = conectar.cursor(dictionary=True)
         cursor.execute(
-         "SELECT livrosnome FROM dados.livros"
+         "SELECT livrosnome FROM dados.livros WHERE "
         )
         livros = cursor.fetchone()
     return livros
@@ -58,9 +58,10 @@ def listagemTodosUsuarios():
     return usuarios
 
 def salvarUsuario(usuario):
-    username = usuario.get('Nome')    
-    email = usuario.get('Email')
-    senhaHashed = generate_password_hash(usuario.get('Senha'), method='pbkdf2:sha256')
+    username = usuario.nome    
+    email = usuario.email
+    senhaHashed = generate_password_hash(usuario.senha, method='pbkdf2:sha256')
+    Imagem = usuario.imagem
     with conexao() as conectar:
         cursor = conectar.cursor() 
         cursor.execute("SELECT EmailUsuario FROM dados.usuarios WHERE EmailUsuario = %s",(email,))
@@ -73,8 +74,8 @@ def salvarUsuario(usuario):
         with conexao() as conectar:
             cursor = conectar.cursor() 
             cursor.execute(
-                'INSERT INTO dados.usuarios (NomeUsuario, EmailUsuario, SenhaUsuario) VALUES (%s,%s, %s)',
-                (username, email, senhaHashed))
+                'INSERT INTO dados.usuarios (NomeUsuario, EmailUsuario, SenhaUsuario,ImagemUsuario) VALUES (%s,%s, %s,%s)',
+                (username, email, senhaHashed,Imagem))
             conectar.commit()
     
 
@@ -87,14 +88,15 @@ def listarApenasUmUsuario(id):
     return user         
 
 def atualizarUmUsuario(id, usuario):
-    username = usuario.get('Nome')  
-    email = usuario.get('Email')
-    senhaHashed = generate_password_hash(usuario.get('Senha'), method='pbkdf2:sha256')
+    username = usuario.nome    
+    email = usuario.email
+    senhaHashed = generate_password_hash(usuario.senha, method='pbkdf2:sha256')
+    Imagem = usuario.imagem
 
     with conexao() as conectar:
         cursor = conectar.cursor()
-        cursor.execute("UPDATE dados.usuarios SET NomeUsuario  = %s EmailUsuario = %s, SenhaUsuario = %s  WHERE idUsuario = %s", 
-                       (username, email, senhaHashed,id))
+        cursor.execute("UPDATE dados.usuarios SET NomeUsuario  = %s EmailUsuario = %s, SenhaUsuario = %s, ImagemUsuario = %s  WHERE idUsuario = %s", 
+                       (username, email, senhaHashed,Imagem,id))
         conectar.commit()
         cursor.close()
 

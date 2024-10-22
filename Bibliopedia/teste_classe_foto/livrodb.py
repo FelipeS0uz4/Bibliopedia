@@ -34,13 +34,13 @@ def RemoverUmLivro(id):
             conectar.commit()
 
 
-def Livrosdb():
+def Livrosdb(idUsuario):
     with conexao() as conectar:
         cursor = conectar.cursor(dictionary=True)
         cursor.execute(
-         "SELECT livrosnome FROM dados.livros"
+         "SELECT livrosnome FROM dados.livros WHERE idUsuario=%s",(idUsuario,)
         )
-        livros = cursor.fetchone()
+        livros = cursor.fetchall()
     return livros
 
 

@@ -6,8 +6,9 @@ blueprint = Blueprint('blueprint',__name__)
 
 ##livros
 
-blueprint.route('/livros', methods=['GET'])(TodosLivros)
+blueprint.route('/livros/<int:idUsuario>', methods=['GET'])(TodosLivros)
 blueprint.route('/livro', methods=['POST'])(SalveLivro)
+blueprint.route('/livro/<Pesquisa>', methods=['GET'])(ListadeLivros)
 #blueprint.route('/livro/<int:id>', methods=['DELETE'])(removerUmLivro)
 
 ##Usuarios

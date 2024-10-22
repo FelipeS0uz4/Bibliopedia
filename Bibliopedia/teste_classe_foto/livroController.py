@@ -121,11 +121,11 @@ def InformaçõesGerais(nome):
 
 ## Livros
 
-def TodosLivros():
+def TodosLivros(idUsuario):
     return make_response(
         jsonify(
             mensagem = 'Lista de livros',
-            livros = ListagemTodosLivros()
+            livros = ListagemTodosLivros(idUsuario)
         )
     )
     
@@ -138,7 +138,16 @@ def SalveLivro():
             Mensagem = "Livro salvo"
         )
     )
+    
+def ListadeLivros(pesquisa):
+    livros = PesquisarNomes(pesquisa)
+    resposta = {}
+    for i in livros:
+        resposta[i] = InformaçõesGerais(i)
+    return resposta
 
+
+    
 
 ## Usuarios
 

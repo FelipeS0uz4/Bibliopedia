@@ -45,7 +45,16 @@ def Livrosdb(idUsuario):
         livros = cursor.fetchall()
     return livros
 
-
+def DeletaLivroDB(dados):
+    idusuario = dados['idUsuario']
+    idLivro = dados['idLivro']
+    with conexao() as conectar:
+        cursor = conectar.cursor()
+        cursor.execute(
+            'DELETE FROM dados.livros WHERE idAPI = %s AND idUsuario = %s',
+            (idLivro, idusuario)
+        )
+        conectar.commit()
 
 ## Manuseio do banco de Comentarios
 

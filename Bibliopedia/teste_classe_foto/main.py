@@ -10,7 +10,7 @@ blueprint = Blueprint('blueprint',__name__)
 blueprint.route('/livros/<int:idUsuario>', methods=['GET'])(Livro.TodosLivros)
 blueprint.route('/livro', methods=['POST'])(Livro.SalveLivro)
 blueprint.route('/livro/<Pesquisa>', methods=['GET'])(Livro.ListadeLivros)
-#blueprint.route('/livro/<idLivro>', methods=['DELETE'])(removerUmLivro)
+blueprint.route('/livro/<idLivro>', methods=['DELETE'])(Livro.DeletarLivro)
 
 
 ##Usuarios

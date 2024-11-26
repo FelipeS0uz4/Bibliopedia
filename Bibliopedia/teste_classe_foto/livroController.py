@@ -39,6 +39,18 @@ class Livro():
         for i in livros:
             resposta[i] = Livro.InformaçõesGerais(i)
         return resposta
+    
+    def DeletarLivro(idLivro):
+        livro = request.json
+        dicionario_dados = {'idUsuario' : livro.get('userId'),
+                            'idLivro' : idLivro
+                            }
+        DeletaLivroDB(dicionario_dados)
+        return make_response(
+            jsonify(
+                mensagem = 'Livro excluido'
+            )
+        )
 
 
     ##Pesquisar dados API Google Books

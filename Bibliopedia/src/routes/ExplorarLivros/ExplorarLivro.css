@@ -1,0 +1,60 @@
+.explorar-livros {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+}
+
+.filtros {
+  width: 250px;
+  padding: 15px;
+  background: #f4f4f4;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.filtros h3,
+.filtros h4 {
+  margin-bottom: 10px;
+}
+
+.filtros label {
+  display: block;
+  margin: 5px 0;
+}
+
+.lista-livros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.livro-card {
+  width: 200px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.livro-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.generos {
+  margin-top: 5px;
+}
+
+.genero {
+  display: inline-block;
+  background: #ddd;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-right: 5px;
+}

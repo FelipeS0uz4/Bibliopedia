@@ -141,16 +141,6 @@ class Livro():
         resultados = Livro.PesquisarLivros(nome)
         descricao = resultados[0]['id']
         return descricao
-    
-    def ComprarLivro(idLivro):
-        idapi = Livro.PesquisarId(idLivro)
-        resultado = Livro.PesquisarLivros(idapi)
-        try:
-            dados = {"valor": resultado[0]["saleInfo"]["retailPrice"]["amount"],"Moeda":resultado[0]["saleInfo"]["retailPrice"]["currencyCode"],"link":resultado[0]["saleInfo"]["buyLink"]}
-        except:
-            dados = "Sem possiblidade para compra"
-        return dados
-        
 
     def InformaçõesGerais(nome):
         dicionario = {"Id":Livro.PesquisarId(nome),
@@ -201,7 +191,6 @@ def salvarComentario():
 def Vercomentarios(idLivro):
     Idapi = Livro.PesquisarId(idLivro)
     return Comentarios(Idapi)
-
     
 ##Rating
 def notaLivro(idLivro):
@@ -213,4 +202,3 @@ def notaLivro(idLivro):
         )
     )
     
-

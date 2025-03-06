@@ -11,7 +11,6 @@ blueprint.route('/livros/<int:idUsuario>', methods=['GET'])(Livro.TodosLivros)
 blueprint.route('/livro', methods=['POST'])(Livro.SalveLivro)
 blueprint.route('/livro/<Pesquisa>', methods=['GET'])(Livro.ListadeLivros)
 blueprint.route('/livro/', methods=['DELETE'])(Livro.DeletarLivro)
-blueprint.route('/livro/comprar/<NomeLivro>', methods=['GET'])(Livro.ComprarLivro)
 
 
 ##Usuarios
@@ -34,6 +33,5 @@ blueprint.route('/comentario', methods=['POST'])(salvarComentario)
 
 ##Rating
 blueprint.route('/rating-media/<idLivro>',methods=['GET'])(notaLivro)
-
 
 

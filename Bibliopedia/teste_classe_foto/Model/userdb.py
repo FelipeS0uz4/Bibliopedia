@@ -106,7 +106,7 @@ def envio_de_email(username,id_usuario,email_usuario):
 
     subject = "Ativação da sua conta"
     body = f"""
-    <html>
+<html>
     <head>
         <meta charset="UTF-8">
         <title>Ativação de Conta</title>

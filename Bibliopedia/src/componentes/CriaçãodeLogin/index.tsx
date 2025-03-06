@@ -1,5 +1,6 @@
-import { ChangeEvent, type FormEvent, useState } from 'react'
-import './PaginaDelogin.css'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './PaginaDeLogin.css'
 
 interface User {
   Nome: string
@@ -14,6 +15,8 @@ const PaginaParaCriacao = () => {
     Senha: '',
   })
   const [mensagemErro, setMensagemErro] = useState<string | null>(null)
+  const [showPopup, setShowPopup] = useState(false) // Estado para exibir o pop-up
+  const navigate = useNavigate()
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -22,82 +25,80 @@ const PaginaParaCriacao = () => {
       [name]: value,
     })
   }
-  const setLoginVazio = () => {
-    setFormData({
-      Nome: '',
-      Email: '',
-      Senha: '',
-    })
-  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log('Dados enviados:', formData)
 
     try {
       const response = await fetch('http://127.0.0.1:5500/usuario', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
+
       if (response.ok) {
-        const data = await response.json()
-        console.log('Login realizado com sucesso:', data)
-        setLoginVazio()
+        setShowPopup(true) // Mostra o pop-up ao concluir o cadastro
       } else {
-        setMensagemErro('Erro ao fazer login. Verifique suas credenciais.')
-        setLoginVazio()
+        const errorData = await response.json()
+        setMensagemErro(errorData.message || 'Erro ao Cadastrar.')
       }
     } catch (error) {
       console.error('Erro ao fazer requisição:', error)
       setMensagemErro('Erro de conexão com o servidor.')
-      setLoginVazio()
     }
   }
 
   return (
-    <div>
-      <div className="container-login">
-        <h3>Login</h3>
-        {mensagemErro && <p style={{ color: 'red' }}>{mensagemErro}</p>}
-        <form
-          action=""
-          method="post"
-          className="container-form"
-          onSubmit={handleSubmit}
-        >
-          {' '}
-          <label htmlFor="Nome">Nome do Usuario: </label>
-          <input
-            type="text"
-            name="Nome"
-            id="Nome"
-            className="input-login"
-            onChange={handleInputChange}
-          />
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            name="Email"
-            id="email"
-            className="input-login"
-            onChange={handleInputChange}
-          />
-          <label htmlFor="senha">Senha: </label>
-          <input
-            type="password"
-            name="Senha"
-            id="senha"
-            className="input-login"
-            onChange={handleInputChange}
-          />
-          <button type="submit" className="btn-entrar">
-            Entrar
-          </button>
-        </form>
-      </div>
+    <div className="container-login">
+      <h3>Cadastro</h3>
+      {mensagemErro && <p style={{ color: 'red' }}>{mensagemErro}</p>}
+      <form className="container-form" onSubmit={handleSubmit}>
+        <label htmlFor="Nome">Nome do Usuario: </label>
+        <input
+          type="text"
+          name="Nome"
+          id="Nome"
+          className="input-login"
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="email">Email: </label>
+        <input
+          type="email"
+          name="Email"
+          id="email"
+          className="input-login"
+          onChange={handleInputChange}
+        />
+
+        <label htmlFor="senha">Senha: </label>
+        <input
+          type="password"
+          name="Senha"
+          id="senha"
+          className="input-login"
+          onChange={handleInputChange}
+        />
+
+        <button type="submit" className="btn-entrar">
+          Cadastrar
+        </button>
+      </form>
+
+      {/* Pop-up de confirmação */}
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>
+              Um e-mail de ativação foi enviado. Verifique sua caixa de entrada
+              para ativar sua conta.
+            </p>
+            <button type="button" onClick={() => navigate('/login')}>
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

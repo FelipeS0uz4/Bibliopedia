@@ -1,0 +1,67 @@
+.container-login {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 10rem auto; /* Centraliza horizontalmente */
+  width: 100%;
+  max-width: 26rem;
+  background: var(--primary-color);
+  padding: 1.25rem;
+  border-radius: 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.container-login h3 {
+  font-size: 2.5rem;
+  text-decoration: underline;
+  text-align: center;
+  color: var(--phrase-color);
+}
+.container-form label {
+  font-size: 1.2rem;
+  color: var(--phrase-color);
+  text-decoration: underline;
+}
+.container-form input {
+  background-color: var(--backgroud-color);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px inset;
+  border-radius: 5px;
+}
+.container-form a {
+  width: 5rem;
+  text-decoration: none;
+  color: var(--phrase-color);
+}
+.container-form a:hover {
+  transition: 0.10s;
+  text-decoration: underline;
+}
+
+.container-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-login {
+  margin-bottom: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 90%;
+}
+
+.btn-entrar {
+  margin-top: 1rem;
+  padding: 10px;
+  border: none;
+  width: 95%;
+  border-radius: 4px;
+  background-color: var(--phrase-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-entrar:hover {
+  background-color: var(--second-color);
+}

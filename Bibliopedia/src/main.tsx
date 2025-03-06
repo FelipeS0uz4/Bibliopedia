@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
@@ -10,8 +10,15 @@ import 'swiper/css/scrollbar'
 import LayoutAvaliacao from './routes/LayoutDeAvaliacao'
 import PaginaDeEntrada from './routes/PaginaDeLogin'
 import PaginaParaCriacao from './componentes/CriaçãodeLogin'
+import SecaodeReel from './componentes/Secao_Primeira'
+import { PaginaDePerfil } from './routes/PaginaDePerfil'
+import FiltroDeLivros from './routes/ExplorarLivros/ExplorarLivros'
+import { Biblioteca } from './routes/Biblioteca'
+import EmailActivation from './routes/email-verification'
+const isAuthenticated = !!localStorage.getItem('user_token')
 
-// Definindo as rotas da aplicação
+const userToken = localStorage.getItem('user_token')
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,14 +29,39 @@ const router = createBrowserRouter([
         element: <LayoutAvaliacao />,
       },
       {
-        path: 'login',
-        element: <PaginaDeEntrada />,
+        index: true,
+        element: <Navigate to="/home" />,
       },
       {
-        path: 'cadastro',
-        element: <PaginaParaCriacao />,
+        path: '/explorar',
+        element: <FiltroDeLivros />,
       },
     ],
+  },
+  {
+    path: 'home',
+    element: <SecaodeReel />,
+  },
+  {
+    path: 'login',
+    element: <PaginaDeEntrada />,
+  },
+  {
+    path: 'cadastro',
+    element: <PaginaParaCriacao />,
+  },
+  {
+    path: 'perfil',
+    element: userToken ? (
+      <PaginaDePerfil TokenId={userToken} />
+    ) : (
+      <Navigate to="/login" />
+    ),
+  },
+  { path: 'biblioteca', element: <Biblioteca /> },
+  {
+    path: 'activation/:id',
+    element: <EmailActivation />,
   },
 ])
 

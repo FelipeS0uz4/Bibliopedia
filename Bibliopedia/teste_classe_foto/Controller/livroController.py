@@ -21,9 +21,9 @@ class Livro():
             )
         )
         
-    def SalveLivro(nome):
+    def SalveLivro():
         livro = request.json
-        dicionario_dados = {'idUsuario' : livro.get('userId'),
+        dicionario_dados = {'idUsuario' : livro.get('IdUsuario'),
                             'DadosLivro' : Livro.InformaçõesGerais(livro.get('nome'))
                             }
         SalvarLivro(dicionario_dados)

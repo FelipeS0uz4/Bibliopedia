@@ -1,63 +1,74 @@
 .Search {
   position: relative;
   height: 2.25rem;
+  left: 0.65rem;
 }
 
 .Search input[type="search"] {
-  padding: .5rem;
+  padding: 1.19rem;
   font-size: 1rem;
-  border: 0px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid #795548; /* Marrom mais escuro */
+  border-radius: 10px 0px 0 10px;
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px inset;
   padding-right: 3rem;
   width: 30rem;
-  color: black;
+  color: #3e2723; /* Marrom escuro para combinar com a CoffeeLibrary */
+}
+
+.Search input[type="search"]::placeholder {
+  color: #a1887f; /* Marrom mais claro para o placeholder */
 }
 
 .Search .list {
   position: absolute;
   left: 0;
   right: 0;
-  border: 1px solid var(--phrase-color);
+  border: 1px solid #795548;
   max-height: 12.5rem;
   overflow-y: auto;
-  background-color: var(--backgroud-color);
+  background-color: #f5e6d3;
   list-style-type: none;
   padding: 0;
   margin: 0;
   z-index: 2;
-  color: var(--phrase-color);
+  color: #3e2723;
   border-radius: 0px 0px 10px 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .Search .list li {
-  font-size: .9rem;
+  font-size: 0.9rem;
   height: 7rem;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   cursor: pointer;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #795548;
+  transition: background 0.3s ease-in-out;
 }
+
+.Search .list li:hover {
+  background-color: #d7ccc8; /* Bege mais escuro ao passar o mouse */
+}
+
 .Search .list li div {
   position: relative;
-  color: var(--phrase-color);
+  color: #3e2723;
   width: 15rem;
   bottom: 7rem;
   left: 6rem;
 }
+
 .Search .list li div p {
   position: relative;
-  font-size: .7rem;
-  bottom: .7rem;
+  font-size: 0.7rem;
+  bottom: 0.7rem;
 }
 
 .Search .list li img {
   position: relative;
   width: 4.5rem;
-  left: 1rem;
-}
-
-.Search .list li:hover {
-  transition: .5s;
-  background-color: var(--primary-color);
+  right: 10rem;
+  bottom: 0.1rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }

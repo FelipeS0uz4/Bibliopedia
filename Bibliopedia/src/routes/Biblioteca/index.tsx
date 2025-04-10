@@ -39,7 +39,7 @@ export const Biblioteca = () => {
       if (response.ok) {
         const data = await response.json()
         setFavoritos(data.livros)
-        console.log
+        console.log(data)
 
         const imagens = await Promise.all(
           data.livros.map(async (livro: Livros) => {
@@ -47,9 +47,12 @@ export const Biblioteca = () => {
             return { id: livro.idlivros, capa }
           })
         )
-        setCapas(
-          imagens.reduce((acc, img) => ({ ...acc, [img.id]: img.capa }), {})
-        )
+
+        // Atualiza apenas as capas novas, mantendo as anteriores
+        setCapas(prevCapas => ({
+          ...prevCapas,
+          ...imagens.reduce((acc, img) => ({ ...acc, [img.id]: img.capa }), {}),
+        }))
       } else {
         console.error('Erro ao obter os livros favoritos:', response.status)
       }

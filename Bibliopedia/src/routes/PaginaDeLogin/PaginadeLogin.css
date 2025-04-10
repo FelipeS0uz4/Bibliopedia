@@ -1,67 +1,287 @@
-.container-login {
+/* Container principal */
+.login-container {
+  min-height: 100vh;
+  background-color: #f5e6d3;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  margin: 10rem auto; /* Centraliza horizontalmente */
-  width: 100%;
-  max-width: 26rem;
-  background: var(--primary-color);
-  padding: 1.25rem;
-  border-radius: 40px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.container-login h3 {
-  font-size: 2.5rem;
-  text-decoration: underline;
+
+/* Cabeçalho */
+.login-header {
+  background-color: #795548;
+  color: #f5e6d3;
+  padding: 1rem;
+}
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Conteúdo principal */
+.login-main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+.login-form-container {
+  width: 100%;
+  max-width: 28rem;
+}
+
+/* Card de login */
+.login-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.login-card-header {
+  background-color: #d7ccc8;
+  padding: 1.5rem;
   text-align: center;
-  color: var(--phrase-color);
 }
-.container-form label {
-  font-size: 1.2rem;
-  color: var(--phrase-color);
-  text-decoration: underline;
+.login-card-header-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
-.container-form input {
-  background-color: var(--backgroud-color);
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px inset;
-  border-radius: 5px;
+.coffee-icon {
+  height: 3rem;
+  width: 3rem;
+  color: #5d4037;
 }
-.container-form a {
-  width: 5rem;
-  text-decoration: none;
-  color: var(--phrase-color);
+.login-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3e2723;
 }
-.container-form a:hover {
-  transition: 0.10s;
-  text-decoration: underline;
+.login-card-subtitle {
+  color: #5d4037;
 }
 
-.container-form {
+/* Mensagem de erro */
+.login-error {
+  padding: 1rem 1.5rem 0;
+}
+.error-text {
+  color: red;
+  text-align: center;
+}
+
+/* Formulário de login */
+.login-form {
+  padding: 1.5rem;
+}
+.login-form-space > * + * {
+  margin-top: 1rem;
+}
+
+/* Grupos de formulário */
+.form-group {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 0.5rem;
+}
+.form-label {
+  color: #3e2723;
 }
 
-.input-login {
-  margin-bottom: 1rem;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 90%;
+/* Inputs e ícones */
+.input-relative {
+  position: relative;
+}
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.input-field {
+  padding-left: 2.5rem;
+  width: 18rem;
+  height: 2rem;
+  border: 1px solid #d7ccc8;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.input-field:focus {
+  border-color: #795548;
+  box-shadow: 0 0 0 2px rgba(121, 85, 72, 0.3);
 }
 
-.btn-entrar {
-  margin-top: 1rem;
-  padding: 10px;
+/* Header do campo senha */
+.form-password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botão para alternar visualização da senha */
+.toggle-password-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
   border: none;
-  width: 95%;
-  border-radius: 4px;
-  background-color: var(--phrase-color);
-  color: var(--primary-color);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: gray;
 }
 
-.btn-entrar:hover {
-  background-color: var(--second-color);
+/* Checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+.checkbox-label {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: #3e2723;
+}
+
+/* Botão de submit */
+.submit-btn {
+  width: 100%;
+  background-color: #795548;
+  color: #fff;
+  transition: background-color 0.3s;
+  border: none;
+  padding: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submit-btn:hover {
+  background-color: #5d4037;
+}
+.spinner-container,
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spinner {
+  animation: spin 1s linear infinite;
+  border: 2px solid transparent;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.5rem;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.btn-arrow {
+  margin-left: 0.5rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Divisor */
+.divider-container {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+.divider-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #d7ccc8;
+}
+.divider-text {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  color: #5d4037;
+}
+
+/* Botão de login com Google */
+.google-container {
+  margin-top: 1.5rem;
+}
+.google-btn {
+  width: 100%;
+  border: 1px solid #d7ccc8;
+  color: #3e2723;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.google-btn:hover {
+  background-color: #efebe9;
+}
+.google-icon {
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+/* Link para cadastro */
+.register-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.register-text {
+  font-size: 0.875rem;
+  color: #5d4037;
+}
+.register-link {
+  color: #795548;
+  font-weight: 500;
+  text-decoration: none;
+}
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Coffee Quote */
+.coffee-quote {
+  margin-top: 2rem;
+  text-align: center;
+}
+.coffee-quote p {
+  font-style: italic;
+  color: #5d4037;
+}
+
+/* Rodapé */
+.login-footer {
+  background-color: #795548;
+  color: #f5e6d3;
+  padding: 1rem 0;
+}
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.forgot-password-link {
+  font-size: 0.8rem;
 }

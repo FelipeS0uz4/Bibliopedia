@@ -15,6 +15,7 @@ import { PaginaDePerfil } from './routes/PaginaDePerfil'
 import FiltroDeLivros from './routes/ExplorarLivros/ExplorarLivros'
 import { Biblioteca } from './routes/Biblioteca'
 import EmailActivation from './routes/email-verification'
+import LoginCallback from './routes/PaginaDeLogin/LoginCallBack'
 const isAuthenticated = !!localStorage.getItem('user_token')
 
 const userToken = localStorage.getItem('user_token')
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: 'activation/:id',
     element: <EmailActivation />,
+  },
+  {
+    path: 'login/callback',
+    element: <LoginCallback />,
   },
 ])
 

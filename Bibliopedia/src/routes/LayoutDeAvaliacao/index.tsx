@@ -2,7 +2,7 @@ import './LayoutAvaliacao.css'
 import type React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { InformacoesGerais } from '../../componentes/BarraDePesquisa/ProcuraDeDados' // Atualize o caminho se necessário
+import { InformacoesGerais } from '../../componentes/BarraDePesquisa/ProcuraDeDados'
 import SecaoComentarios from '../../componentes/SecaoComentarios'
 import LoadingScreen from '../../componentes/LoadingScreen'
 
@@ -12,9 +12,16 @@ interface Informacoes {
   Descricao: string
 }
 
+interface DadosCompra {
+  valor: number
+  moeda: string
+  link: string
+}
+
 const LayoutAvaliacao: React.FC = () => {
-  const { livroId } = useParams<{ livroId: string }>() // Tipagem para o parâmetro da rota
+  const { livroId } = useParams<{ livroId: string }>()
   const [informacoes, setInformacoes] = useState<Informacoes | null>(null)
+  const [dadosCompra, setDadosCompra] = useState<DadosCompra | null>(null)
   const isAuthenticated = !!localStorage.getItem('user_token')
 
   useEffect(() => {
@@ -29,8 +36,30 @@ const LayoutAvaliacao: React.FC = () => {
       }
     }
 
+    const fetchDadosCompra = async () => {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:5500/livro/comprar/${livroId}`
+        )
+        if (response.ok) {
+          const data = await response.json()
+          setDadosCompra(data)
+          console.log(data)
+        } else {
+          console.error(
+            'Erro ao buscar informações de compra:',
+            response.status
+          )
+        }
+      } catch (error) {
+        console.error('Erro ao buscar informações de compra:', error)
+      }
+    }
+
     fetchInformacoes()
+    fetchDadosCompra()
   }, [livroId])
+
   const handleOnclick = async () => {
     if (!informacoes) return
 
@@ -62,6 +91,7 @@ const LayoutAvaliacao: React.FC = () => {
       console.error('Erro ao adicionar o livro à biblioteca:', error)
     }
   }
+
   return (
     <div className="Pagina">
       {informacoes ? (
@@ -78,6 +108,30 @@ const LayoutAvaliacao: React.FC = () => {
               <p className="sinopse">{informacoes.Descricao}</p>
             </div>
           </section>
+
+          {/* Seção para exibir as informações de compra */}
+          {dadosCompra ? (
+            <section className="container-compra">
+              <h2>Informações de Compra</h2>
+              <p>
+                <strong>Preço:</strong> {dadosCompra.valor} {dadosCompra.moeda}
+              </p>
+              <a
+                href={dadosCompra.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button type="button" className="btn-comprar">
+                  Comprar Livro
+                </button>
+              </a>
+            </section>
+          ) : (
+            <p className="sem-compra">
+              Este livro não está disponível para compra.
+            </p>
+          )}
+
           {isAuthenticated ? <SecaoComentarios LivroId={livroId!} /> : null}
         </>
       ) : (
